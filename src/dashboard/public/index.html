@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển Bot - Team102 (Phong cách Noctaly)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0d1117;
+      --bg-card: #161b22;
+      --bg-input: #21262d;
+      --border: #30363d;
+      --accent: #5865f2;
+      --accent-hover: #4752c4;
+      --success: #23a55a;
+      --danger: #f23f43;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --discord-embed-bg: #2b2d31;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .bot-profile {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .bot-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      object-fit: cover;
+    }
+    .bot-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-badge {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+    .bot-tag {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .btn-save-header {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-save-header:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .hero-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .hero-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    /* Grid Layout */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .module-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .module-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .module-icon {
+      font-size: 1.5rem;
+    }
+    .module-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .module-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Switch toggle */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 28px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border);
+      transition: .3s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--success);
+      border-color: var(--success);
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* Content Body */
+    .module-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    @media (max-width: 900px) {
+      .module-body { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #c9d1d9;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    select {
+      cursor: pointer;
+    }
+    select option {
+      background: var(--bg-card);
+      color: var(--text);
+    }
+    input[type="text"]:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .color-picker-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: none;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    input[type="color"]::-webkit-color-swatch {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    /* Tag pills */
+    .tag-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .tag-pill {
+      background: rgba(88, 101, 242, 0.15);
+      color: #9cb1ff;
+      border: 1px solid rgba(88, 101, 242, 0.3);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tag-pill:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Preview Section */
+    .preview-box {
+      background: #1e1f22;
+      border: 1px solid #232428;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .preview-header-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Discord Embed Mockup */
+    .discord-message {
+      display: flex;
+      gap: 12px;
+      font-size: 0.93rem;
+    }
+    .mock-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #5865f2;
+      flex-shrink: 0;
+    }
+    .mock-content {
+      flex: 1;
+    }
+    .mock-username {
+      font-weight: 600;
+      color: #f2f3f5;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mock-bot-tag {
+      background: #5865f2;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+    .mock-text {
+      color: #dbdee1;
+      margin-bottom: 8px;
+    }
+
+    .mock-embed {
+      background: var(--discord-embed-bg);
+      border-left: 4px solid var(--success);
+      border-radius: 4px;
+      padding: 12px 16px;
+      max-width: 500px;
+      transition: border-color 0.2s;
+    }
+    .mock-embed-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #f2f3f5;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mock-embed-author img {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+    }
+    .mock-embed-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .mock-embed-desc {
+      font-size: 0.88rem;
+      color: #dbdee1;
+      white-space: pre-wrap;
+      margin-bottom: 8px;
+    }
+    .mock-embed-footer {
+      font-size: 0.75rem;
+      color: #949ba4;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 6px;
+      margin-top: 6px;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #23a55a;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 1000;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="bot-profile">
+      <img id="botAvatar" class="bot-avatar" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" alt="Avatar">
+      <div>
+        <div class="bot-name">
+          <span class="status-badge"></span>
+          <span id="botTag">Team102 Bot</span>
+        </div>
+        <div class="bot-tag">Bảng Điều Khiển Quản Lý Tự Động</div>
+      </div>
+    </div>
+    <button class="btn-save-header" onclick="saveConfig()">
+      💾 Lưu Cấu Hình
+    </button>
+  </header>
+
+  <div class="container">
+    <div class="hero-title">Quản Lý Chào Mừng & Tạm Biệt</div>
+    <div class="hero-subtitle">Tùy biến kênh gửi và nội dung thông báo người ra vào server theo phong cách Noctaly.</div>
+
+    <div class="modules-grid">
+
+      <!-- Module 1: CHÀO MỪNG -->
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-title-wrap">
+            <span class="module-icon">🎉</span>
+            <div>
+              <div class="module-title">Thông Báo Chào Mừng (Welcome)</div>
+              <div class="module-desc">Tự động gửi thẻ Embed khi có thành viên mới tham gia server</div>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="welcomeEnabled" onchange="updatePreview()">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="module-body">
+          <div class="form-settings">
+            <div class="form-group">
+              <label>📢 Kênh Gửi Tin Nhắn Chào Mừng</label>
+              <select id="welcomeChannel">
+                <option value="">🤖 Tự động phát hiện (Mặc định)</option>
+              </select>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
+                Chọn một kênh cụ thể hoặc để "Tự động phát hiện" theo tên kênh chào mừng.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Tiêu Đề Thẻ (Title)</label>
+              <input type="text" id="welcomeTitle" oninput="updatePreview()" placeholder="Ví dụ: 🎉 CHÀO MỪNG ĐẾN VỚI {server}!">
+            </div>
+
+            <div class="form-group">
+              <label>Nội Dung Lời Chào (Description)</label>
+              <textarea id="welcomeDesc" oninput="updatePreview()" placeholder="Nhập lời chào mừng..."></textarea>
+              <div class="tag-pills">
+                <span class="tag-pill" onclick="insertTag('welcomeDesc', '{user}')">+{user} (Tag người dùng)</span>
+                <span class="tag-pill" onclick="insertTag('welcomeDesc', '{username}')">+{username} (Tên)</span>
+                <span class="tag-pill" onclick="insertTag('welcomeDesc', '{server}')">+{server} (Tên server)</span>
+                <span class="tag-pill" onclick="insertTag('welcomeDesc', '{membercount}')">+{membercount} (Thứ tự)</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Màu Viền Thẻ (Embed Color)</label>
+              <div class="color-picker-wrap">
+                <input type="color" id="welcomeColor" oninput="syncColorText('welcomeColor', 'welcomeColorText'); updatePreview()">
+                <input type="text" id="welcomeColorText" style="width: 120px;" oninput="syncColorInput('welcomeColorText', 'welcomeColor'); updatePreview()">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Chân Trang (Footer)</label>
+              <input type="text" id="welcomeFooter" oninput="updatePreview()" placeholder="Ví dụ: {server} • Chúc bạn chơi game vui vẻ!">
+            </div>
+          </div>
+
+          <div class="preview-box">
+            <div class="preview-header-label">👁️ Xem Trước Thời Gian Thực (Discord Preview)</div>
+            <div class="discord-message">
+              <div class="mock-avatar"></div>
+              <div class="mock-content">
+                <div class="mock-username">
+                  Team102 <span class="mock-bot-tag">BOT</span>
+                </div>
+                <div class="mock-text" id="mockWelcomeUserMention">Chào mừng @GameThu gia nhập server! 🎊</div>
+                <div class="mock-embed" id="mockWelcomeEmbed">
+                  <div class="mock-embed-author">
+                    <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="">
+                    <span>GameThu đã gia nhập máy chủ</span>
+                  </div>
+                  <div class="mock-embed-title" id="mockWelcomeTitle">Tiêu đề chào mừng</div>
+                  <div class="mock-embed-desc" id="mockWelcomeDesc">Nội dung chào mừng</div>
+                  <div class="mock-embed-footer" id="mockWelcomeFooter">Chân trang</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 2: TẠM BIỆT -->
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-title-wrap">
+            <span class="module-icon">👋</span>
+            <div>
+              <div class="module-title">Thông Báo Tạm Biệt (Goodbye)</div>
+              <div class="module-desc">Tự động gửi thông báo khi có thành viên rời khỏi máy chủ</div>
+            </div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="goodbyeEnabled" onchange="updatePreview()">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="module-body">
+          <div class="form-settings">
+            <div class="form-group">
+              <label>📢 Kênh Gửi Tin Nhắn Tạm Biệt</label>
+              <select id="goodbyeChannel">
+                <option value="">🤖 Tự động phát hiện (Mặc định)</option>
+              </select>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
+                Chọn một kênh cụ thể hoặc để "Tự động phát hiện" theo tên kênh.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Tiêu Đề Thẻ (Title)</label>
+              <input type="text" id="goodbyeTitle" oninput="updatePreview()" placeholder="Ví dụ: 👋 THÀNH VIÊN RỜI MÁY CHỦ">
+            </div>
+
+            <div class="form-group">
+              <label>Nội Dung Tạm Biệt (Description)</label>
+              <textarea id="goodbyeDesc" oninput="updatePreview()" placeholder="Nhập lời tạm biệt..."></textarea>
+              <div class="tag-pills">
+                <span class="tag-pill" onclick="insertTag('goodbyeDesc', '{username}')">+{username} (Tên)</span>
+                <span class="tag-pill" onclick="insertTag('goodbyeDesc', '{server}')">+{server} (Tên server)</span>
+                <span class="tag-pill" onclick="insertTag('goodbyeDesc', '{membercount}')">+{membercount} (Sĩ số còn lại)</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Màu Viền Thẻ (Embed Color)</label>
+              <div class="color-picker-wrap">
+                <input type="color" id="goodbyeColor" oninput="syncColorText('goodbyeColor', 'goodbyeColorText'); updatePreview()">
+                <input type="text" id="goodbyeColorText" style="width: 120px;" oninput="syncColorInput('goodbyeColorText', 'goodbyeColor'); updatePreview()">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Chân Trang (Footer)</label>
+              <input type="text" id="goodbyeFooter" oninput="updatePreview()" placeholder="Ví dụ: {server} • Hẹn gặp lại bạn!">
+            </div>
+          </div>
+
+          <div class="preview-box">
+            <div class="preview-header-label">👁️ Xem Trước Thời Gian Thực (Discord Preview)</div>
+            <div class="discord-message">
+              <div class="mock-avatar" style="background: #e74c3c;"></div>
+              <div class="mock-content">
+                <div class="mock-username">
+                  Team102 <span class="mock-bot-tag">BOT</span>
+                </div>
+                <div class="mock-embed" id="mockGoodbyeEmbed" style="border-left-color: #e74c3c;">
+                  <div class="mock-embed-author">
+                    <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="">
+                    <span>GameThu đã rời khỏi máy chủ</span>
+                  </div>
+                  <div class="mock-embed-title" id="mockGoodbyeTitle">Tiêu đề tạm biệt</div>
+                  <div class="mock-embed-desc" id="mockGoodbyeDesc">Nội dung tạm biệt</div>
+                  <div class="mock-embed-footer" id="mockGoodbyeFooter">Chân trang</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toast">✅ Đã lưu cấu hình thành công!</div>
+
+  <script>
+    let currentConfig = {};
+
+    function syncColorText(sourceId, targetId) {
+      document.getElementById(targetId).value = document.getElementById(sourceId).value;
+    }
+    function syncColorInput(sourceId, targetId) {
+      const val = document.getElementById(sourceId).value;
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        document.getElementById(targetId).value = val;
+      }
+    }
+
+    function insertTag(textareaId, tag) {
+      const el = document.getElementById(textareaId);
+      const start = el.selectionStart;
+      const end = el.selectionEnd;
+      const text = el.value;
+      el.value = text.substring(0, start) + tag + text.substring(end);
+      el.focus();
+      el.selectionStart = el.selectionEnd = start + tag.length;
+      updatePreview();
+    }
+
+    function mockParse(text) {
+      if (!text) return '';
+      return text
+        .replace(/{user}/g, '@GameThu')
+        .replace(/{username}/g, 'GameThu')
+        .replace(/{server}/g, 'Server Game Việt Hóa')
+        .replace(/{membercount}/g, '1,250');
+    }
+
+    function updatePreview() {
+      // Welcome preview
+      const wTitle = document.getElementById('welcomeTitle').value;
+      const wDesc = document.getElementById('welcomeDesc').value;
+      const wFooter = document.getElementById('welcomeFooter').value;
+      const wColor = document.getElementById('welcomeColor').value;
+      const wEnabled = document.getElementById('welcomeEnabled').checked;
+
+      document.getElementById('mockWelcomeTitle').textContent = mockParse(wTitle) || 'Chưa nhập tiêu đề';
+      document.getElementById('mockWelcomeDesc').textContent = mockParse(wDesc) || 'Chưa nhập nội dung';
+      document.getElementById('mockWelcomeFooter').textContent = mockParse(wFooter) || '';
+      document.getElementById('mockWelcomeEmbed').style.borderLeftColor = wColor;
+      document.getElementById('mockWelcomeEmbed').style.opacity = wEnabled ? '1' : '0.4';
+
+      // Goodbye preview
+      const gTitle = document.getElementById('goodbyeTitle').value;
+      const gDesc = document.getElementById('goodbyeDesc').value;
+      const gFooter = document.getElementById('goodbyeFooter').value;
+      const gColor = document.getElementById('goodbyeColor').value;
+      const gEnabled = document.getElementById('goodbyeEnabled').checked;
+
+      document.getElementById('mockGoodbyeTitle').textContent = mockParse(gTitle) || 'Chưa nhập tiêu đề';
+      document.getElementById('mockGoodbyeDesc').textContent = mockParse(gDesc) || 'Chưa nhập nội dung';
+      document.getElementById('mockGoodbyeFooter').textContent = mockParse(gFooter) || '';
+      document.getElementById('mockGoodbyeEmbed').style.borderLeftColor = gColor;
+      document.getElementById('mockGoodbyeEmbed').style.opacity = gEnabled ? '1' : '0.4';
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch('/api/info');
+        const data = await res.json();
+        currentConfig = data.config || {};
+
+        if (data.bot) {
+          if (data.bot.tag) document.getElementById('botTag').textContent = data.bot.tag;
+          if (data.bot.avatar) document.getElementById('botAvatar').src = data.bot.avatar;
+        }
+
+        // Đổ danh sách kênh vào 2 dropdown
+        const welcomeSelect = document.getElementById('welcomeChannel');
+        const goodbyeSelect = document.getElementById('goodbyeChannel');
+
+        welcomeSelect.innerHTML = '<option value="">🤖 Tự động phát hiện (Mặc định)</option>';
+        goodbyeSelect.innerHTML = '<option value="">🤖 Tự động phát hiện (Mặc định)</option>';
+
+        if (data.channels && data.channels.length > 0) {
+          data.channels.forEach(ch => {
+            const opt1 = document.createElement('option');
+            opt1.value = ch.id;
+            opt1.textContent = `#${ch.name} (${ch.guildName})`;
+            welcomeSelect.appendChild(opt1);
+
+            const opt2 = document.createElement('option');
+            opt2.value = ch.id;
+            opt2.textContent = `#${ch.name} (${ch.guildName})`;
+            goodbyeSelect.appendChild(opt2);
+          });
+        }
+
+        const w = currentConfig.welcome || {};
+        document.getElementById('welcomeEnabled').checked = w.enabled !== false;
+        if (w.channelId) welcomeSelect.value = w.channelId;
+        document.getElementById('welcomeTitle').value = w.title || '';
+        document.getElementById('welcomeDesc').value = w.description || '';
+        document.getElementById('welcomeFooter').value = w.footer || '';
+        const wCol = w.color || '#2ECC71';
+        document.getElementById('welcomeColor').value = wCol;
+        document.getElementById('welcomeColorText').value = wCol;
+
+        const g = currentConfig.goodbye || {};
+        document.getElementById('goodbyeEnabled').checked = g.enabled !== false;
+        if (g.channelId) goodbyeSelect.value = g.channelId;
+        document.getElementById('goodbyeTitle').value = g.title || '';
+        document.getElementById('goodbyeDesc').value = g.description || '';
+        document.getElementById('goodbyeFooter').value = g.footer || '';
+        const gCol = g.color || '#E74C3C';
+        document.getElementById('goodbyeColor').value = gCol;
+        document.getElementById('goodbyeColorText').value = gCol;
+
+        updatePreview();
+      } catch (err) {
+        console.error('Không thể tải cấu hình:', err);
+      }
+    }
+
+    async function saveConfig() {
+      const payload = {
+        welcome: {
+          enabled: document.getElementById('welcomeEnabled').checked,
+          channelId: document.getElementById('welcomeChannel').value,
+          title: document.getElementById('welcomeTitle').value,
+          description: document.getElementById('welcomeDesc').value,
+          color: document.getElementById('welcomeColor').value,
+          footer: document.getElementById('welcomeFooter').value,
+        },
+        goodbye: {
+          enabled: document.getElementById('goodbyeEnabled').checked,
+          channelId: document.getElementById('goodbyeChannel').value,
+          title: document.getElementById('goodbyeTitle').value,
+          description: document.getElementById('goodbyeDesc').value,
+          color: document.getElementById('goodbyeColor').value,
+          footer: document.getElementById('goodbyeFooter').value,
+        }
+      };
+
+      try {
+        const res = await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        if (result.success) {
+          showToast('✅ Đã lưu cấu hình thành công!');
+        } else {
+          showToast('❌ Có lỗi xảy ra khi lưu!');
+        }
+      } catch (err) {
+        showToast('❌ Lỗi kết nối!');
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
+
+    loadData();
+  </script>
+</body>
+</html>

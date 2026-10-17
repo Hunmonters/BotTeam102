@@ -1,6 +1,18 @@
 {
-  "welcomeChannelId": "1433075390397681675",
-  "welcomeRoleId": "1548330281277194340",
-  "ticketCategoryId": "",
-  "supportRoleId": ""
+  "welcome": {
+    "enabled": true,
+    "channelId": "1433075390397681678",
+    "title": "🎉 CHÀO MỪNG ĐẾN VỚI {server}!",
+    "description": "Xin chào {user}, chào mừng bạn đã gia nhập cộng đồng!\n\n🏆 Bạn là thành viên thứ **#{membercount}** của đại gia đình.",
+    "color": "#2ecc71",
+    "footer": "{server} • Chúc bạn có những trải nghiệm tuyệt vời!"
+  },
+  "goodbye": {
+    "enabled": true,
+    "channelId": "1433075390397681678",
+    "title": "👋 THÀNH VIÊN RỜI MÁY CHỦ",
+    "description": "Tạm biệt **{username}**!\nCảm ơn bạn đã đồng hành cùng cộng đồng trong thời gian qua.\n\n👥 Server hiện còn lại **{membercount}** thành viên.",
+    "color": "#e74c3c",
+    "footer": "{server} • Hẹn gặp lại bạn!"
+  }
 }

@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { startDashboard } = require('./dashboard/server');
 require('dotenv').config();
 
 const token = process.env.DISCORD_TOKEN;
@@ -51,5 +52,9 @@ for (const file of eventFiles) {
     client.on(event.name, (...args) => event.execute(...args));
   }
 }
+
+// Khởi động Web Dashboard
+const PORT = process.env.PORT || 3000;
+startDashboard(PORT, client);
 
 client.login(token);
