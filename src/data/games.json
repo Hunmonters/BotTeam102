@@ -1,0 +1,35 @@
+[
+  {
+    "id": "black-myth-wukong",
+    "name": "Black Myth: Wukong",
+    "aliases": ["wukong", "tay du ky", "ngo khong"],
+    "status": "Hoàn thành",
+    "translator": "Team Việt Hóa",
+    "description": "Bản dịch việt hóa đầy đủ cốt truyện, hội thoại, giao diện và mô tả vật phẩm.",
+    "webUrl": "https://example.com/black-myth-wukong-viet-hoa",
+    "launcherSupported": true,
+    "version": "v1.0.8"
+  },
+  {
+    "id": "elden-ring",
+    "name": "Elden Ring: Shadow of the Erdtree",
+    "aliases": ["elden ring", "erdtree"],
+    "status": "Hoàn thành",
+    "translator": "Team Việt Hóa",
+    "description": "Việt hóa hoàn chỉnh bao gồm cả DLC Shadow of the Erdtree.",
+    "webUrl": "https://example.com/elden-ring-viet-hoa",
+    "launcherSupported": true,
+    "version": "v1.14"
+  },
+  {
+    "id": "silent-hill-2-remake",
+    "name": "Silent Hill 2 Remake",
+    "aliases": ["sh2", "silent hill 2"],
+    "status": "Đang dịch (85%)",
+    "translator": "Team Việt Hóa",
+    "description": "Đang trong giai đoạn dịch thuật và kiểm thử font.",
+    "webUrl": "https://example.com/silent-hill-2-viet-hoa",
+    "launcherSupported": false,
+    "version": "Đang thử nghiệm"
+  }
+]
